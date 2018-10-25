@@ -1,10 +1,39 @@
-const bunyan = require('bunyan');
+const winston = require('winston');
+const moment = require('moment');
 
-// create a logger instance
-const log = bunyan.createLogger({
-  name: 'api app',
-  level: 'debug',
-  serializers: bunyan.stdSerializers
+// define the custom settings for each transport (file, console)
+const options = {
+  console: {
+    level: 'info',
+    handleExceptions: true,
+    json: true,
+    colorize: true,
+    timestamp() {
+      return moment
+        .utc()
+        .format();
+    },
+    prettyPrint: true,
+    humanReadableUnhandledException: true
+  }
+};
+const logger = new winston.Logger({
+  transports: [
+  //  new winston.transports.File(options.file),
+    new winston
+      .transports
+      .Console(options.console),
+  ],
+  exceptionHandlers: [
+    // new winston.transports.File(options.errorLog)
+  ],
+  exitOnError: false, // do not exit on handled exceptions
 });
 
-module.exports = log;
+// create a stream object with a 'write' function that will be used by `morgan`
+logger.stream = {
+  write(message, encoding) {
+    logger.info(message);
+  }
+};
+module.exports = logger;
