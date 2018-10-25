@@ -1,24 +1,25 @@
-'use strict'
+;
+
 /**
  * Vendor modules
  */
-const Inert = require('inert')
-const Vision = require('vision')
-const HapiSwagger = require('hapi-swagger')
-const Good = require('good')
+const Inert = require('inert');
+const Vision = require('vision');
+const HapiSwagger = require('hapi-swagger');
+const Good = require('good');
 /**
  * Internal modules
  */
-const Package = require('./package.json')
+const Package = require('./package.json');
 
-const DEVELOPMENT = 'development'
+const DEVELOPMENT = 'development';
 
 /**
  * copied
  * exports array of plugins with configuration.
  * @type {Array}
  */
-let plugins = []
+let plugins = [];
 
 if (process.env.NODE_ENV === 'dev') {
   // add all plugins in an array and register them
@@ -31,12 +32,12 @@ if (process.env.NODE_ENV === 'dev') {
       register: HapiSwagger,
       options: {
         info: {
-          'title': Package.description,
-          'version': Package.version
+          title: Package.description,
+          version: Package.version
         },
         pathPrefixSize: 4
       }
-    }])
+    }]);
 
   // add good console for log reporting
   plugins.push({
@@ -49,7 +50,7 @@ if (process.env.NODE_ENV === 'dev') {
         }, 'stdout']
       }
     }
-  })
+  });
 }
 
-module.exports = plugins
+module.exports = plugins;

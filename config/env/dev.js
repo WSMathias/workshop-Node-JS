@@ -2,5 +2,7 @@
 
 const configuration = {};
 configuration.mongo = {
-  url: process.env.USERNAME,
+  url: process.env.mongo,
 };
+
+module.exports = configuration;

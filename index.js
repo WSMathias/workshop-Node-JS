@@ -4,12 +4,13 @@
 if (process.env.NODE_ENV === 'production') {
   require('newrelic')
 }
-
-const config = require('config')
+global.env = process.env.NODE_ENV;
+global.configuration = require(`./config/env/${global.env}`);
+console.log(global.configuration );
 
 const server = require('./server')
 const logger = require('./server/utils/logger')
-
+const mongoose = require('./lib/mongoose')();
 const gracefulStopServer = function () {
   // Wait 10 secs for existing connection to close and then exit.
   server.stop({timeout: 10 * 1000}, () => {

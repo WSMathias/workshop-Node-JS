@@ -1,19 +1,16 @@
-'use strict'
+const userHandler = require('./userHandler');
+const userValidation = require('./userValidations');
 
-const config = require('config')
-const userHandler = require('./userHandler')
-const userValidation = require('./userValidations')
-
-const routes = []
+const routes = [];
 
 routes.push({
-  path: '' + '/user',
+  path: '/user',
   method: 'GET',
   handler: userHandler.getUserByName,
   config: {
     tags: ['api'],
     validate: userValidation.getUsers
   }
-})
+});
 
-module.exports = routes
+module.exports = routes;

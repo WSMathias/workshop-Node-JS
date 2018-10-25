@@ -1,11 +1,10 @@
-const bunyan = require('bunyan')
-const config = require('config')
+const bunyan = require('bunyan');
 
 // create a logger instance
 const log = bunyan.createLogger({
-  name: config.get('app.name'),
-  level: config.get('app.logLevel'),
+  name: 'api app',
+  level: 'debug',
   serializers: bunyan.stdSerializers
-})
+});
 
-module.exports = log
+module.exports = log;
