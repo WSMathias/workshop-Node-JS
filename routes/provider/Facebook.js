@@ -3,6 +3,7 @@
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
 const userController = require('../../controller/UserController');
+/* eslint no-underscore-dangle: 0 */
 
 passport.use(new FacebookStrategy(
   {

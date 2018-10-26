@@ -10,7 +10,8 @@ const expressJoiValidator = require('express-joi-validator');
 const expressJoi = require('../lib/requestValidator');
 const FacebookRoutes = require('./provider/Facebook');
 const GoogleRoutes = require('./provider/Google');
-const ResponseTemplate = require('../helper/responseTemplate');
+const LinkedinRoutes = require('./provider/Linkedin');
+
 const boom = require('express-boom');
 
 passport.serializeUser((user, done) => {
@@ -88,4 +89,15 @@ router.get('/callback/facebook', FacebookRoutes.callback(), redirectSocialUser);
  */
 router.get('/login/google', GoogleRoutes.authenticate());
 router.get('/callback/google', GoogleRoutes.callback(), redirectSocialUser);
+module.exports = router;
+
+/**
+ * @api {POST} /auth/login/linkedin Social Login
+ * @apiName linkedin
+ * @apiGroup Auth
+ * @apiSuccess {String} code HTTP status code from API.
+ * @apiSuccess {String} message Message from API.
+ */
+router.get('/login/linkedin', LinkedinRoutes.authenticate());
+router.get('/callback/linkedin', LinkedinRoutes.callback(), redirectSocialUser);
 module.exports = router;
