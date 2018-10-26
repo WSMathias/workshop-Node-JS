@@ -1,4 +1,5 @@
 # Node JS app for REST APIs
+[![Build Status](https://travis-ci.com/tkssharma/workshop-Node-JS.svg?branch=master)](https://travis-ci.com/tkssharma/workshop-Node-JS)
 REST API to support application features
   - Express as web framework
   - Passport js for social authentication 
