@@ -14,20 +14,22 @@ passport.use(new FacebookStrategy(
   },
   (req, accessToken, refreshToken, profile, done) => {
     const data = profile._json;
-    userController.registerSocial(
-      {
+    userController.registerSocial({
+      provider: 'facebook',
+      name: data.name,
+      email: data.email,
+      mobno: '5436785432',
+      meta: {
         provider: 'facebook',
-        name: data.name,
-        email: data.email,
-        mobno: '5436785432',
-        meta: {
-          provider: 'facebook',
-          id: profile.id,
-          token: accessToken,
-        }
-      },
-      done
-    );
+        id: profile.id,
+        token: accessToken,
+      }
+    }, (err, profileData) => {
+      if (err) {
+        done(err, null);
+      }
+      done(null, profileData);
+    });
   }
 ));
 

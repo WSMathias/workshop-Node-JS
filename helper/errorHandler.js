@@ -17,8 +17,7 @@ class errorHandlers {
       res.status(500).json({
         success: false,
         message: err.message,
-        error: (onDevEnv) ? err.stack : {},
-        code: 5400
+        error: (onDevEnv) ? err.stack : {}
       });
     }
   }
