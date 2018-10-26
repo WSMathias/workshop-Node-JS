@@ -10,6 +10,6 @@ COPY . /usr/src/app/
 RUN apt-get update && npm install
 # Run npm install --global grpc --unsafe-perm
 
-EXPOSE 3005 9230
+EXPOSE 3000 9220
 
 CMD [ "npm", "run", "debug" ]

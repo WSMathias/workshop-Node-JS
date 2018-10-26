@@ -1,24 +1,13 @@
-const glob = require('glob');
-const path = require('path');
-const _ = require('lodash');
-// add ping route by default for health check
-// ping api will respond with pong
-const routes = [{
-  method: 'GET',
-  path: '/ping',
-  handler(request, reply) {
-    return reply('pong');
-  },
-  config: {
-    tags: ['api']
-  }
-}];
+/* eslint func-names: ["error", "never"] */
+/* eslint prefer-destructuring: 0 */
+const router = require('express').Router();
+const authRoutes = require('./routes/routes');
+const validAuthTokenMiddleware = require('./Middleware/authMiddleware');
 
-// add all routes from all modules to the routes array manually or write your routes inside a folder inside the server folder
 
-glob.sync('./server/**/*Routes.js').forEach((file) => {
-  routes.push(require(path.resolve(file)));
-});
+router.use('/auth/', authRoutes);
+router.use('/scooty/',validAuthTokenMiddleware.validateToken, authRoutes);
 
-// export routes
-module.exports = _.flattenDeep(routes);
+
+module.exports = router;
+

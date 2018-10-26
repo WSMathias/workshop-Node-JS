@@ -29,6 +29,6 @@ services:
     networks:
       - api_network
 networks:
-  pac_network:
+  api_network:
     driver: bridge
     name: api_network
