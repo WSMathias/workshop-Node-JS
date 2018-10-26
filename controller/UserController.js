@@ -34,6 +34,7 @@ class userController {
     });
   }
   static registerSocial(user, callback) {
+    console.log(user);
     User.findOne({ email: user.email }, (error, existingUser) => {
       if (existingUser) {
         callback(null, (existingUser));

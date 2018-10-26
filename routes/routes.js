@@ -9,6 +9,8 @@ const jwt = require('jsonwebtoken');
 const expressJoiValidator = require('express-joi-validator');
 const expressJoi = require('../lib/requestValidator');
 const FacebookRoutes = require('./provider/Facebook');
+const GoogleRoutes = require('./provider/Google');
+
 const boom = require('express-boom');
 
 passport.serializeUser((user, done) => {
@@ -65,8 +67,24 @@ const redirectSocialUser = (req, res) => {
   });
 };
 
-// auth/login/facebook --->
+/**
+ * @api {POST} /auth/login/facebook Social Login
+ * @apiName google
+ * @apiGroup Auth
+ * @apiSuccess {String} code HTTP status code from API.
+ * @apiSuccess {String} message Message from API.
+ */
 router.get('/login/facebook', FacebookRoutes.authenticate());
 router.get('/callback/facebook', FacebookRoutes.callback(), redirectSocialUser);
 
+
+/**
+ * @api {POST} /auth/login/google Social Login
+ * @apiName google
+ * @apiGroup Auth
+ * @apiSuccess {String} code HTTP status code from API.
+ * @apiSuccess {String} message Message from API.
+ */
+router.get('/login/google', GoogleRoutes.authenticate());
+router.get('/callback/google', GoogleRoutes.callback(), redirectSocialUser);
 module.exports = router;
