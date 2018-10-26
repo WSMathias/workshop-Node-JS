@@ -17,7 +17,7 @@ passport.use(new GoogleStrategy(
       provider: 'google',
       username: data.displayName,
       email: data.emails[0].value,
-      mobno: '5436785432',
+      phone: '5436785432',
       meta: {
         provider: 'google',
         id: data.id,

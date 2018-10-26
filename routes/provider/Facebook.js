@@ -18,7 +18,7 @@ passport.use(new FacebookStrategy(
       provider: 'facebook',
       name: data.name,
       email: data.email,
-      mobno: '5436785432',
+      phone: '5436785432',
       meta: {
         provider: 'facebook',
         id: profile.id,

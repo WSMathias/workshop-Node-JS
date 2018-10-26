@@ -28,7 +28,7 @@ class userController {
         cb(new Error('user already regitsered with us'), null);
       } else {
         return User.create({
-          username: body.username, password: hash, mobno: body.mobno, email: body.email
+          username: body.username, password: hash, phone: body.phone, email: body.email
         }, (error, data) => {
           if (error) {
             cb(error, null);
@@ -46,7 +46,7 @@ class userController {
         callback(null, (existingUser));
       } else {
         User.create({
-          username: user.email, mobno: user.mobno, email: user.email
+          username: user.email, phone: user.phone, email: user.email
         }, (err, data) => {
           if (err) {
             callback(err, null);
