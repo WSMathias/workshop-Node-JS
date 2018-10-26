@@ -1,4 +1,5 @@
 const winston = require('winston');
+const ResponseTemplate = require('./responseTemplate');
 
 const env = process.env.NODE_ENV;
 const onDevEnv = env === 'dev' || env === 'test' || env === 'local';
@@ -11,7 +12,7 @@ class errorHandlers {
         message: err.output.payload.error,
         error: err.output.payload.message
       };
-      res.status(400).json({'message' : 'internal server error occured'});
+      res.status(400).json(ResponseTemplate.BadRequestFromJoi(error));
     } else { // internalServerError
       res.status(500).json({
         success: false,
@@ -22,7 +23,7 @@ class errorHandlers {
     }
   }
   static PageNotFound(req, res, err) {
-    res.status(404).json({'message' : 'not found'});
+    res.status(404).json({ message: 'api not found' });
   }
 }
 

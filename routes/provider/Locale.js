@@ -8,28 +8,27 @@ const helper = require('../../helper/bcrypt');
 
 passport.use(new LocalStrategy(
   {
-    usernameField: 'user',
+    usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true,
     session: false
   },
-  ((req, username, password, done) => {
+  ((req, email, password, done) => {
     // write code here to find user if it exists in system
-    User.find({ user: username }, (err, data) => {
+    User.find({ email }, (err, data) => {
       if (err) {
-        return done({ code: 401, message: 'user not found', error: 'user not found' }, null);
+        return done(new Error('user not found'), null);
       } else if (data.length === 0) {
-        return done({ code: 401, message: 'user not found', error: 'user not found' }, null);
+        return done(new Error('user not found'), null);
       }
-       const flag = helper.comparePassword(password, data[0].password);
-        if (! flag) {
-          return done({ code: 401, message: 'user pasword is incorrect', error: 'user pasword is incorrect' }, null);
-        }
-        return done(null, data);
+      const flag = helper.comparePassword(password, data[0].password);
+      if (!flag) {
+        return done(new Error('invalid password provided'), null);
+      }
+      return done(null, data);
     });
   })
 ));
-
 
 const localRoutes = {
   authenticate() {

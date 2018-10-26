@@ -1,14 +1,17 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-
 const userSchema = new Schema({
-  user: {
+  username: {
     type: String,
     required: true
   },
   password: { type: String },
   email: {
+    index: { unique: true },
+    type: String
+  },
+  address: {
     type: String
   },
   meta: {
@@ -17,7 +20,9 @@ const userSchema = new Schema({
   mobno: {
     type: String
   },
-  token: { type: String }
+  uuid: {
+    type: String
+  }
 }, {
   timestamps: {
     createdAt: 'created_at',

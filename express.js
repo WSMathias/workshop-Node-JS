@@ -10,6 +10,8 @@ const helmet = require('helmet');
 const cors = require('cors');
 const errorHandlers = require('./helper/errorHandler');
 const router = require('./routes');
+var boom = require('express-boom');
+
 /* eslint func-names:0 */
 
 module.exports = function (app) {
@@ -20,7 +22,8 @@ module.exports = function (app) {
   app.use(logger('dev'));
   app.disable('x-powered-by');
   app.disable('etag');
-  app.use(helmet())
+  app.use(helmet());
+  app.use(boom());
   app.use(helmet.noCache({ noEtag: true })); // set Cache-Control header
   app.use(helmet.noSniff()); // set X-Content-Type-Options header
   app.use(helmet.frameguard()); // set X-Frame-Options header

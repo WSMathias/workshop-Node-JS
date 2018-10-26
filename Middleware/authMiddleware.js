@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 module.exports = {
   validateToken(req, res, next) {
     // validatr token here is its valid here
-    const token = req.cookies.auth;
+    const token = req.headers.authorisation;
     if (token) {
       jwt.verify(token, 'secretkey', (err, data) => {
         if (err) {
