@@ -58,6 +58,7 @@ const redirectSocialUser = (req, res) => {
     if (tokError) {
       res.boom.badImplementation(tokError);
     } else {
+      // redirect app to FE app routes with Token
       res.json({
         statusCode: 200,
         message: 'success',
