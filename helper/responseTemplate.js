@@ -42,6 +42,12 @@ const Response = {
       err.message,
       err.error
     );
+  },
+  userAlreadyExist(err) {
+    return Response.general({
+      message: 'user already registered in System',
+      description: 'user already registered in System'
+    });
   }
 };
 module.exports = Response;

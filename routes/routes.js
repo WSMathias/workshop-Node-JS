@@ -10,7 +10,7 @@ const expressJoiValidator = require('express-joi-validator');
 const expressJoi = require('../lib/requestValidator');
 const FacebookRoutes = require('./provider/Facebook');
 const GoogleRoutes = require('./provider/Google');
-
+const ResponseTemplate = require('../helper/responseTemplate');
 const boom = require('express-boom');
 
 passport.serializeUser((user, done) => {
@@ -41,7 +41,7 @@ router.post(
   (req, res) => {
     UserController.registerDefault(req, res, (error, user) => {
       if (error) {
-        res.boom.badImplementation(error);
+        res.status(400).json(ResponseTemplate.userAlreadyExist(error.message));
       } else {
         res.json({
           statusCode: 200,

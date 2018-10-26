@@ -23,13 +23,19 @@ class userController {
   static registerDefault(req, res, cb) {
     const { body } = req;
     const hash = helper.generateSaltValue(body);
-    return User.create({
-      username: body.username, password: hash, mobno: body.mobno, email: body.email
-    }, (error, data) => {
-      if (error) {
-        cb(error, null);
+    return User.find({ email: body.email }).then((user) => {
+      if (user && user.length > 0) {
+        cb(new Error('user already regitsered with us'), null);
       } else {
-        cb(null, data);
+        return User.create({
+          username: body.username, password: hash, mobno: body.mobno, email: body.email
+        }, (error, data) => {
+          if (error) {
+            cb(error, null);
+          } else {
+            cb(null, data);
+          }
+        });
       }
     });
   }
