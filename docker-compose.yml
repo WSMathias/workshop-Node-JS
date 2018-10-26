@@ -6,12 +6,12 @@ services:
     container_name: api_mongo
     image: mongo:latest
     volumes:
-      - ~/datadir/mongo:/var/lib/mongo
+      - ~/blabladatadir/mongo:/var/lib/mongo
     ports:
       - 27017:27017
     networks:
       - api_network
-  apibackend:
+  backend:
     container_name: api_backend
     build: ./
     image: api_backend
@@ -21,13 +21,15 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - 3000:3000
+      - 3005:3005
       - 9229:9229
     restart: unless-stopped
     depends_on:
       - mongo
     networks:
       - api_network
+    env_file:
+      - env.sh
 networks:
   api_network:
     driver: bridge

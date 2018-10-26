@@ -4,12 +4,12 @@ FROM node:carbon
 WORKDIR /usr/src/app
 
 # Bundle app source
-COPY . /usr/src/app/
+COPY . .
 
 # npm install
 RUN apt-get update && npm install
 # Run npm install --global grpc --unsafe-perm
 
-EXPOSE 3000 9220
+EXPOSE 3005 9229
 
 CMD [ "npm", "run", "debug" ]
