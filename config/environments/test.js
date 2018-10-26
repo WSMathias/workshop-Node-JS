@@ -14,4 +14,9 @@ configuration.google = {
   client_secret: process.env.G_CLIENTSECRET,
   callback_url: process.env.G_CALLBACK
 };
+configuration.linkedin = {
+  client_id: process.env.L_CLIENTID,
+  client_secret: process.env.L_CLIENTSECRET,
+  callback_url: process.env.L_CALLBACK
+};
 module.exports = configuration;

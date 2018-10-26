@@ -2,6 +2,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const userController = require('../../controller/UserController');
+/* eslint no-underscore-dangle: 0 */
 
 passport.use(new GoogleStrategy(
   {

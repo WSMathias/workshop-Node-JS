@@ -10,13 +10,15 @@ const helmet = require('helmet');
 const cors = require('cors');
 const errorHandlers = require('./helper/errorHandler');
 const router = require('./routes');
-var boom = require('express-boom');
+const boom = require('express-boom');
+const expressSession = require('express-session');
 
 /* eslint func-names:0 */
 
 module.exports = function (app) {
   app.use(passport.initialize());
   // required for passport to initlize it
+  app.use(expressSession({ secret: process.env.EXPRESS_SESSION_SECRET }));
   app.use(passport.session());
   // initlize session
   app.use(logger('dev'));
