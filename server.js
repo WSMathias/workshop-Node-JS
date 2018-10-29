@@ -3,6 +3,9 @@ const express = require('express');
 /* eslint func-names:0 */
 /* eslint import/no-dynamic-require:0 */
 const app = express();
+const session = require('express-session');
+// After you declare "app"
+app.use(session({ secret: 'melody hensley is my spirit animal' }));
 console.log(` using ${process.env.NODE_ENV} to run application`);
 global.configuration = require(`./config/environments/${process.env.NODE_ENV}`);
 const logger = require('winston');

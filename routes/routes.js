@@ -12,6 +12,8 @@ const FacebookRoutes = require('./provider/Facebook');
 const GoogleRoutes = require('./provider/Google');
 const LinkedinRoutes = require('./provider/Linkedin');
 
+const TwitterRoute = require('./provider/Twitter');
+
 const boom = require('express-boom');
 
 passport.serializeUser((user, done) => {
@@ -21,6 +23,10 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
+router.get('/ping', (req, res) => {
+  // login stuff here
+  res.status(200).json({ message: 'pong' });
+});
 router.post('/login', LocaleRoute.authenticate(), (req, res) => {
   // login stuff here
   if (req.user && req.user[0].email) {
@@ -89,6 +95,16 @@ router.get('/callback/facebook', FacebookRoutes.callback(), redirectSocialUser);
  */
 router.get('/login/google', GoogleRoutes.authenticate());
 router.get('/callback/google', GoogleRoutes.callback(), redirectSocialUser);
+
+/**
+ * @api {POST} /auth/login/twitter Social Login
+ * @apiName twitter
+ * @apiGroup Auth
+ * @apiSuccess {String} code HTTP status code from API.
+ * @apiSuccess {String} message Message from API.
+ */
+router.get('/login/twitter', TwitterRoute.authenticate('twitter'));
+router.get('/callback/twitter', TwitterRoute.callback(), redirectSocialUser);
 module.exports = router;
 
 /**

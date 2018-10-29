@@ -15,6 +15,9 @@ passport.use(new FacebookStrategy(
   },
   (req, accessToken, refreshToken, profile, done) => {
     const data = profile._json;
+    if (!data.email) {
+      data.email = 'ramnivas.yadav@srijan.net';
+    }
     userController.registerSocial({
       provider: 'facebook',
       name: data.name,
@@ -31,6 +34,7 @@ passport.use(new FacebookStrategy(
       }
       done(null, profileData);
     });
+
   }
 ));
 

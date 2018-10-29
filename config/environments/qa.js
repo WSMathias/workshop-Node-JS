@@ -19,4 +19,9 @@ configuration.linkedin = {
   client_secret: process.env.L_CLIENTSECRET,
   callback_url: process.env.L_CALLBACK
 };
+configuration.twitter = {
+  client_id: process.env.T_CLIENTID,
+  client_secret: process.env.T_CLIENTSECRET,
+  callback_url: process.env.T_CALLBACK
+};
 module.exports = configuration;
