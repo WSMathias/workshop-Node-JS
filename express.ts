@@ -1,3 +1,4 @@
+export {}
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express = require('express');
@@ -49,7 +50,6 @@ module.exports = function (app) {
   // server side template rendering
   app.use(express.static(path.join(__dirname, 'public')));
   // static folder path
-  app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
   app.use('/', router);
   app.use(errorHandlers.internalServerError);

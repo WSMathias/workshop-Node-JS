@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-const Response = {
+const data: any = {
   general(data) {
     return data;
   },
@@ -24,30 +24,30 @@ const Response = {
     };
   },
   emptyContent() {
-    return Response.general({
+    return data.general({
       message: 'empty content found',
       description: 'you must provide valid data and it must not be empty.',
       helpful_links: ['http://stackoverflow.com/questions/18419428/what-is-the-minimum-valid-json']
     });
   },
   invalidContentType() {
-    return Response.general({
+    return data.general({
       message: 'invalid content type',
       description: 'you must specify content type and it must be application/json',
       helpful_links: ['http://stackoverflow.com/questions/477816/what-is-the-correct-json-content-type']
     });
   },
   BadRequestFromJoi(err) {
-    return Response.error(
+    return data.error(
       err.message,
       err.error
     );
   },
   userAlreadyExist(err) {
-    return Response.general({
+    return data.general({
       message: 'user already registered in System',
       description: 'user already registered in System'
     });
   }
 };
-module.exports = Response;
+module.exports = data;

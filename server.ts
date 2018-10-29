@@ -4,10 +4,13 @@ const express = require('express');
 /* eslint import/no-dynamic-require:0 */
 const app = express();
 const session = require('express-session');
+export interface Global {
+  configuration: object;
+}
 // After you declare "app"
 app.use(session({ secret: 'melody hensley is my spirit animal' }));
 console.log(` using ${process.env.NODE_ENV} to run application`);
-global.configuration = require(`./config/environments/${process.env.NODE_ENV}`);
+global['configuration'] = require(`./config/environments/${process.env.NODE_ENV}`);
 const logger = require('winston');
 const mongoose = require('./lib/mongoose')();
 

@@ -1,3 +1,4 @@
+export {}
 const winston = require('winston');
 
 // define the custom settings for each transport (file, console)
@@ -7,11 +8,6 @@ const options = {
     handleExceptions: true,
     json: true,
     colorize: true,
-    timestamp() {
-      return moment
-        .utc()
-        .format();
-    },
     prettyPrint: true,
     humanReadableUnhandledException: true
   }

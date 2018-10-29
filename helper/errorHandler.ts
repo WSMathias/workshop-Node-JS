@@ -3,7 +3,7 @@ const ResponseTemplate = require('./responseTemplate');
 
 const env = process.env.NODE_ENV;
 const onDevEnv = env === 'dev' || env === 'test' || env === 'local';
-class errorHandlers {
+class errorHandler {
   static internalServerError(err, req, res, next) {
     winston.log(err);
     if (err.isBoom) {
@@ -26,5 +26,5 @@ class errorHandlers {
   }
 }
 
-module.exports = errorHandlers;
+module.exports = errorHandler;
 

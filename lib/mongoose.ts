@@ -1,8 +1,8 @@
 /* eslint func-names:0 */
 const mongoose = require('mongoose');
-
+export {}
 mongoose.Promise = require('bluebird');
-const { url } = global.configuration.mongo;
+const { url } = global['configuration'].mongo;
 const MongoConnect = function () {
   const db = mongoose.connect(url, { useNewUrlParser: true }, (error) => {
     if (error) {

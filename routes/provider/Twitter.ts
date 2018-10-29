@@ -6,8 +6,8 @@ const userController = require('../../controller/UserController');
 
 passport.use(new TwitterStrategy(
   {
-    consumerKey: global.configuration.twitter.client_id,
-    consumerSecret: global.configuration.twitter.client_secret,
+    consumerKey: global['configuration'].twitter.client_id,
+    consumerSecret: global['configuration'].twitter.client_secret,
     callbackURL: 'http://127.0.0.1:3005/auth/callback/twitter'
   },
   (token, tokenSecret, profile, done) => {

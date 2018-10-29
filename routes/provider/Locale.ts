@@ -1,12 +1,13 @@
 /* eslint prefer-destructuring:0 */
-const passport = require('passport');
+export {}
+const passportModule = require('passport');
 const LocalStrategy = require('passport-local');
 const userController = require('../../controller/UserController');
 const User = require('../../models/User');
 const helper = require('../../helper/bcrypt');
 
 
-passport.use(new LocalStrategy(
+passportModule.use(new LocalStrategy(
   {
     usernameField: 'email',
     passwordField: 'password',
@@ -32,9 +33,9 @@ passport.use(new LocalStrategy(
 
 const localRoutes = {
   authenticate() {
-    return passport.authenticate('local', { session: false });
+    return passportModule.authenticate('local', { session: false });
   },
-  authenticate_with_callback: () => passport.authenticate('local', {
+  authenticate_with_callback: () => passportModule.authenticate('local', {
     successRedirect: '/auth/success',
     failureRedirect: '/auth/failed'
   }),

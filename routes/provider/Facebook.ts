@@ -1,5 +1,6 @@
 
 
+export {}
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
 const userController = require('../../controller/UserController');
@@ -7,9 +8,9 @@ const userController = require('../../controller/UserController');
 
 passport.use(new FacebookStrategy(
   {
-    clientID: global.configuration.facebook.client_id,
-    clientSecret: global.configuration.facebook.client_secret,
-    callbackURL: global.configuration.facebook.callback_url,
+    clientID: global['configuration'].facebook.client_id,
+    clientSecret: global['configuration'].facebook.client_secret,
+    callbackURL: global['configuration'].facebook.callback_url,
     profileFields: ['id', 'displayName', 'photos', 'email'],
     passReqToCallback: true,
   },

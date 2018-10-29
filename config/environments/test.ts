@@ -1,6 +1,6 @@
 /* eslint quote-props: 0 */
-
-const configuration = {};
+export {}
+const configuration:any = {};
 configuration.mongo = {
   url: process.env.MONGOURL,
 };

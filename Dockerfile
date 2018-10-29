@@ -12,4 +12,6 @@ RUN apt-get update && npm install
 
 EXPOSE 3005 9220
 
+CMD [ "npm", "run", "build" ]
+
 CMD [ "npm", "run", "debug" ]

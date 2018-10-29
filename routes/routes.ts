@@ -1,5 +1,5 @@
+export {}
 const express = require('express');
-
 const router = express.Router();
 const passport = require('passport');
 const LocaleRoute = require('./provider/Locale');
@@ -11,7 +11,7 @@ const expressJoi = require('../lib/requestValidator');
 const FacebookRoutes = require('./provider/Facebook');
 const GoogleRoutes = require('./provider/Google');
 const LinkedinRoutes = require('./provider/Linkedin');
-
+const Template = require('../routes/routes');
 const TwitterRoute = require('./provider/Twitter');
 
 const boom = require('express-boom');
@@ -48,7 +48,7 @@ router.post(
   (req, res) => {
     UserController.registerDefault(req, res, (error, user) => {
       if (error) {
-        res.status(400).json(ResponseTemplate.userAlreadyExist(error.message));
+        res.status(400).json(Template.userAlreadyExist(error.message));
       } else {
         res.json({
           statusCode: 200,

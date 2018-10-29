@@ -40,7 +40,8 @@ package-lock.json
 
 # Jetbrains dir
 .idea/
-
+/dist/
+*/dist
 .DS_Store
 
 # github dir
