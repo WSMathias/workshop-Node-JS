@@ -7,9 +7,9 @@ const userController = require('../../controller/UserController');
 
 passport.use(new GoogleStrategy(
   {
-    clientID: global['configuration'].google.client_id,
-    clientSecret: global['configuration'].google.client_secret,
-    callbackURL: global['configuration'].google.callback_url,
+    clientID: global.configuration.google.client_id,
+    clientSecret: global.configuration.google.client_secret,
+    callbackURL: global.configuration.google.callback_url,
     profileFields: ['id', 'displayName', 'photos', 'email']
   },
   (accessToken, refreshToken, profile, done) => {
@@ -46,4 +46,4 @@ const GoogleRoutes = {
 };
 
 
-module.exports = GoogleRoutes;
+export default GoogleRoutes;

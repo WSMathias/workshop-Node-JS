@@ -42,4 +42,4 @@ const localRoutes = {
 };
 
 
-module.exports = localRoutes;
+export default localRoutes;

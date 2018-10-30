@@ -1,24 +1,36 @@
-#!/usr/bin/env node
-const express = require('express');
-/* eslint func-names:0 */
-/* eslint import/no-dynamic-require:0 */
-const app = express();
-const session = require('express-session');
-export interface Global {
-  configuration: object;
-}
+import * as http from 'http';
+import * as debug from 'debug';
 // After you declare "app"
-app.use(session({ secret: 'melody hensley is my spirit animal' }));
 console.log(` using ${process.env.NODE_ENV} to run application`);
-global['configuration'] = require(`./config/environments/${process.env.NODE_ENV}`);
+global.configuration = require(`./config/environments/${process.env.NODE_ENV}`);
+import App from './express';
+
+const port = (process.env.PORT || 3000);
 const logger = require('winston');
 const mongoose = require('./lib/mongoose')();
 
-require('./express')(app);
+const server = http.createServer(App);
+server.listen(process.env.PORT || 3000);
+server.on('error', onError);
+server.on('listening', onListening);
 
-const server = app.listen(process.env.PORT || 3005, () => {
-  console.log(`Listening on http://localhost:${process.env.PORT || 3005}`);
-});
+
+function onError(error: NodeJS.ErrnoException): void {
+  if (error.syscall !== 'listen') throw error;
+  let bind = (typeof port === 'string') ? 'Pipe ' + port : 'Port ' + port;
+  switch(error.code) {
+    case 'EACCES':
+      console.error(`${bind} requires elevated privileges`);
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(`${bind} is already in use`);
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
 
 const gracefulStopServer = function () {
   // Wait 10 secs for existing connection to close and then exit.
@@ -44,19 +56,8 @@ process.on('unhandledRejection', (reason, promise) => {
 process.on('SIGINT', gracefulStopServer);
 process.on('SIGTERM', gracefulStopServer);
 
-server.on('error', (error) => {
-  if (error.syscall !== 'listen') { throw error; }
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(`Port ${process.env.PORT} requires elevated privileges`);
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(`Port ${process.env.PORT} is already in use`);
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-});
+function onListening(): void {
+  let addr = server.address();
+  let bind = (typeof addr === 'string') ? `pipe ${addr}` : `port ${addr.port}`;
+  debug(`Listening on ${bind}`);
+}

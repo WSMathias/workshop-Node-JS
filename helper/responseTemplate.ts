@@ -24,30 +24,30 @@ const data: any = {
     };
   },
   emptyContent() {
-    return data.general({
+    return this.general({
       message: 'empty content found',
       description: 'you must provide valid data and it must not be empty.',
       helpful_links: ['http://stackoverflow.com/questions/18419428/what-is-the-minimum-valid-json']
     });
   },
   invalidContentType() {
-    return data.general({
+    return this.general({
       message: 'invalid content type',
       description: 'you must specify content type and it must be application/json',
       helpful_links: ['http://stackoverflow.com/questions/477816/what-is-the-correct-json-content-type']
     });
   },
   BadRequestFromJoi(err) {
-    return data.error(
+    return this.error(
       err.message,
       err.error
     );
   },
   userAlreadyExist(err) {
-    return data.general({
+    return this.general({
       message: 'user already registered in System',
       description: 'user already registered in System'
     });
   }
 };
-module.exports = data;
+export default data;

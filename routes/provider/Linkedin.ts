@@ -5,9 +5,9 @@ const userController = require('../../controller/UserController');
 /* eslint no-underscore-dangle: 0 */
 passport.use(new LinkedInStrategy(
   {
-    consumerKey: global['configuration'].linkedin.client_id,
-    consumerSecret: global['configuration'].linkedin.client_secret,
-    callbackURL: global['configuration'].linkedin.callback_url,
+    consumerKey: global.configuration.linkedin.client_id,
+    consumerSecret: global.configuration.linkedin.client_secret,
+    callbackURL: global.configuration.linkedin.callback_url,
     profileFields: ['id', 'first-name', 'last-name', 'email-address', 'headline']
   },
   ((token, tokenSecret, profile, done) => {
@@ -40,4 +40,4 @@ const LinkedinRoutes = {
 
 };
 
-module.exports = LinkedinRoutes;
+export default LinkedinRoutes;

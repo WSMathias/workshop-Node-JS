@@ -1,11 +1,11 @@
-const winston = require('winston');
-const ResponseTemplate = require('./responseTemplate');
-
+import * as winston from 'winston';
+import  ResponseTemplate from './responseTemplate';
+/* eslint class-methods-use-this:0 */
 const env = process.env.NODE_ENV;
 const onDevEnv = env === 'dev' || env === 'test' || env === 'local';
 class errorHandler {
-  static internalServerError(err, req, res, next) {
-    winston.log(err);
+  public internalServerError(err, req, res, next) {
+    winston.log('info',err);
     if (err.isBoom) {
       // Error From  joi express validator
       const error = {
@@ -21,10 +21,9 @@ class errorHandler {
       });
     }
   }
-  static PageNotFound(req, res, err) {
+  public PageNotFound(req, res, err) {
     res.status(404).json({ message: 'api not found' });
   }
 }
 
-module.exports = errorHandler;
-
+export default new errorHandler();

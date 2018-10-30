@@ -1,13 +1,12 @@
 /* eslint func-names: ["error", "never"] */
 /* eslint prefer-destructuring: 0 */
-const expressRouter = require('express').Router();
-const authRoutes = require('./routes/routes');
-const validAuthTokenMiddleware = require('./Middleware/authMiddleware');
-
+import * as express from 'express';
+const expressRouter= express.Router();
+import authRoutes from './routes/routes';
+import validAuthTokenMiddleware from './middleware/authMiddleware';
 
 expressRouter.use('/auth/', authRoutes);
 expressRouter.use('/scooty/',validAuthTokenMiddleware.validateToken, authRoutes);
 
 
-module.exports = expressRouter;
-
+export default expressRouter;

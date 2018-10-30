@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-module.exports = {
+const validation = {
   createUser: {
     body: {
       username: Joi.string().min(6).max(50).required(),
@@ -10,3 +10,4 @@ module.exports = {
     },
   }
 };
+export default  validation
