@@ -45,8 +45,16 @@ const data: any = {
   },
   userAlreadyExist(err) {
     return this.general({
+      success: false,
       message: 'user already registered in System',
       description: 'user already registered in System'
+    });
+  },
+  userdoesNotExist(err) {
+    return this.general({
+      success: false,
+      message:  err.message || 'user not registered in system',
+      description: 'user account does not exist in system'
     });
   }
 };

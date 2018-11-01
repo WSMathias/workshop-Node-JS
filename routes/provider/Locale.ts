@@ -1,5 +1,4 @@
 /* eslint prefer-destructuring:0 */
-export {}
 const passportModule = require('passport');
 const LocalStrategy = require('passport-local');
 const userController = require('../../controller/UserController');
@@ -18,13 +17,13 @@ passportModule.use(new LocalStrategy(
     // write code here to find user if it exists in system
     User.find({ email }, (err, data) => {
       if (err) {
-        return done(new Error('user not found'), null);
+        return done(null, null);
       } else if (data.length === 0) {
-        return done(new Error('user not found'), null);
+        return done(null, null);
       }
       const flag = helper.comparePassword(password, data[0].password);
       if (!flag) {
-        return done(new Error('invalid password provided'), null);
+        return done(null, null);
       }
       return done(null, data);
     });

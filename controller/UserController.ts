@@ -8,19 +8,22 @@ const saltRounds = 10;
 class userController {
   static validateUser(req, res, cb) {
     const { body } = req;
-    User.find({ user: body.user })
+    User.find({ email: body.email })
       .then((data) => {
         if (data && data.length) {
-          const flag = helper.comparePassword(body.password, data[0].password, (error, result) => {
+          const flag = helper.comparePassword(body.password, data[0].password)
             if (flag) {
               jwt.sign({ user: data[0].email }, 'secretkey', (tokError, token) => {
                 cb(null, token);
               });
+            } else {
+              cb(new Error('username password does not match'), null);
             }
-            cb(new Error('username password does not match'), null);
-          });
-        }
-      });
+          }
+          else {
+            cb(new Error('no user found with this account email'), null);
+          }
+        });
   }
   static registerDefault(req, res, cb) {
     const { body } = req;

@@ -5,14 +5,14 @@ const UserController = require("../controller/UserController");
 const jwt = require("jsonwebtoken");
 // seralize user Object
 import LocaleRoute from "./provider/Locale";
-import * as expressJoiValidator from"express-joi-validator";
+import * as expressJoiValidator from "express-joi-validator";
 import expressJoi from "../lib/requestValidator";
-import  FacebookRoutes from "./provider/Facebook";
-import  GoogleRoutes from "./provider/Google";
-import  LinkedinRoutes from "./provider/Linkedin";
-import  Template from "../helper/responseTemplate";
-import  TwitterRoute from "./provider/Twitter";
-
+import FacebookRoutes from "./provider/Facebook";
+import GoogleRoutes from "./provider/Google";
+import LinkedinRoutes from "./provider/Linkedin";
+import Template from "../helper/responseTemplate";
+import TwitterRoute from "./provider/Twitter";
+import * as template from '../helper/responseTemplate';
 const boom = require("express-boom");
 import { Router, Request, Response, NextFunction } from "express";
 
@@ -40,18 +40,17 @@ export class AuthRouter {
     });
   }
   public login(req: any, res: any) {
-    // login stuff here
-    if (req.user && req.user[0].email) {
-      jwt.sign({ user: req.user[0].email }, "secretkey", (tokError, token) => {
-        res.json({
-          statusCode: 200,
+    UserController.validateUser(req, res, (err, token) => {
+      if (err) {
+        res.status(401).json(Template.userdoesNotExist(err));
+      } else {
+        res.status(200).json({
+          success: true,
           message: "success",
           token
         });
-      });
-    } else {
-      res.boom.unauthorized("invalid username or password");
-    }
+      }
+    });
   }
   public redirectSocialUser(req, res) {
     jwt.sign({ user: req.user }, "secretkey", (tokError, token) => {
@@ -72,14 +71,12 @@ export class AuthRouter {
    * endpoints.
    */
   init() {
-    passport.serializeUser((user, done) => {
-      done(null, user);
-    });
-    passport.deserializeUser((user, done) => {
-      done(null, user);
-    });
-    this.router.post("/login", LocaleRoute.authenticate(), this.login);
-    this.router.post("/register",expressJoiValidator(expressJoi.createUser),this.register);
+    this.router.post("/login", this.login);
+    this.router.post(
+      "/register",
+      expressJoiValidator(expressJoi.createUser),
+      this.register
+    );
     /**
      * @api {POST} /auth/login/facebook Social Login
      * @apiName google
